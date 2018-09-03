@@ -45,8 +45,9 @@ public class OrderServiceImpl implements OrderService {
         int carId=order.getCar_id();
         Car car = carDao.getOne(carId);
         List<Order> orders = orderDao.findByCar_id(carId);
+        System.out.println(order.getStartTime());
+        System.out.println(order.getEndTime());
         if(car.getStartTime().after(order.getStartTime()) || car.getEndTime().before(order.getEndTime())){
-            System.out.println("car");
             return false;
         }
         for(Order one: orders){

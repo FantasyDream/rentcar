@@ -3,6 +3,7 @@ package com.example.rentcar.service.impl;
 import com.example.rentcar.dao.UserDao;
 import com.example.rentcar.model.User;
 import com.example.rentcar.service.UserService;
+import com.example.rentcar.utils.AppMD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loginCheck(User user) {
-            return userDao.findByUsernameAndUserpwd(user.getUsername(),user.getUserpwd());
+        String md5=AppMD5Util.MD5(user.getUserpwd());
+        return userDao.findByUsernameAndUserpwd(user.getUsername(),md5);
     }
 
     @Override
@@ -30,6 +32,7 @@ public class UserServiceImpl implements UserService {
         if (exits(user.getUsername())==true)
             return false;
         else{
+            user.setUserpwd(AppMD5Util.MD5(user.getUserpwd()));
             if (userDao.save(user)==null){
                 return false;
             }else{

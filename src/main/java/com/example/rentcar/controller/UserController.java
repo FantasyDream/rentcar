@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/exits/{username}")
+    @GetMapping("/exist/{username}")
     public String exits(@PathVariable String username){
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode node = objectMapper.createObjectNode();
@@ -37,9 +37,7 @@ public class UserController {
         ObjectNode node = objectMapper.createObjectNode();
         user=userService.loginCheck(user);
         if (user!=null){
-            node.put("message","true");
-            session.setAttribute("user",objectMapper.writeValueAsString(user));
-            return node.toString();
+            return objectMapper.writeValueAsString(user);
         } else {
             node.put("message","false");
             return node.toString();

@@ -28,6 +28,9 @@ public class Order implements Serializable {
     @Column(name = "end_time")
     private Timestamp endTime;
 
+    @Column(name = "message")
+    private String message;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "car_id")
     private Car car;
@@ -106,5 +109,13 @@ public class Order implements Serializable {
 
     public void setCar_id(int car_id) {
         this.car_id = car_id;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
